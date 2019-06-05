@@ -24,7 +24,7 @@ class AmostraDAO extends Conn {
 
         $select = " SELECT "
                     . " ITAMOSORGA_ID AS \"idAmostra\" "
-                    . " , AMOSORGAN_ID AS \"idAmostraOrganismo\" "
+                    . " , AMOSORGAN_ID AS \"idAmostraOrgan\" "
                     . " , SEQ AS \"seqAmostra\" "
                     . " , CD AS \"codAmostra\" "
                     . " , CARACTER(DESCR) AS \"descrAmostra\" "

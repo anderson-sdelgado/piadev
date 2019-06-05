@@ -23,9 +23,9 @@ class CaracOrganDAO extends Conn {
     public function dados() {
 
         $select = " SELECT DISTINCT "
-                    . " GRCARACORG_ID AS \"idCaracOrganismo\" "
-                    . " , CD AS \"codCaracOrganismo\" "
-                    . " , CARACTER(DESCR) AS \"descrCaracOrganismo\" "
+                    . " GRCARACORG_ID AS \"idCaracOrgan\" "
+                    . " , CD AS \"codCaracOrgan\" "
+                    . " , CARACTER(DESCR) AS \"descrCaracOrgan\" "
                 . " FROM "
                     . " USINAS.GR_CARAC_ORGAN ";
         

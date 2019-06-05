@@ -23,9 +23,9 @@ class OrganDAO extends Conn {
     public function dados() {
 
         $select = " SELECT "
-                    . " ORGDANINHO_ID AS \"idOrganismo\" "
-                    . " , CD AS \"codOrganismo\" "
-                    . " , CARACTER(DESCR) AS \"descrOrganismo\" "
+                    . " ORGDANINHO_ID AS \"idOrgan\" "
+                    . " , CD AS \"codOrgan\" "
+                    . " , CARACTER(DESCR) AS \"descrOrgan\" "
                 . " FROM "
                     . " USINAS.V_INFEST_ORGAN ";
         

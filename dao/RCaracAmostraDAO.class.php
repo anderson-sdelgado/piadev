@@ -24,8 +24,8 @@ class RCaracAmostraDAO extends Conn {
 
         $select = " SELECT "
                     . " ORGDANAMOS_ID AS \"idRCaracAmostra\" "
-                    . " , GRCARACORG_ID AS \"idCaracOrganismo\" "
-                    . " , AMOSORGAN_ID AS \"idAmostraOrganismo\" "
+                    . " , GRCARACORG_ID AS \"idCaracOrgan\" "
+                    . " , AMOSORGAN_ID AS \"idAmostraOrgan\" "
                 . " FROM "
                     . " USINAS.V_INFEST_CARAC ";
         

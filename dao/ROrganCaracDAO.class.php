@@ -23,9 +23,9 @@ class ROrganCaracDAO extends Conn {
     public function dados() {
 
         $select = " SELECT "
-                    . " ORGDANAMOS_ID AS \"idROrganismoCarac\" "
-                    . " , ORGDANINHO_ID AS \"idOrganismo\" "
-                    . " , GRCARACORG_ID AS \"idCaracOrganismo\" "
+                    . " ORGDANAMOS_ID AS \"idROrganCarac\" "
+                    . " , ORGDANINHO_ID AS \"idOrgan\" "
+                    . " , GRCARACORG_ID AS \"idCaracOrgan\" "
                 . " FROM "
                     . " USINAS.V_INFEST_CARAC ";
         
