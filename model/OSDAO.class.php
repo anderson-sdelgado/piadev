@@ -27,7 +27,8 @@ class OSDAO extends Conn {
                         . " , ID_LIB_OS AS \"idLibOS\" "
                         . " , ID_PROPR_AGR AS \"idProprAgr\" "
                     . " FROM "
-                        . " USINAS.V_ECM_OS ";
+                        . " USINAS.V_ECM_OS "
+                    . " WHERE OS_ID <> 1664382 ";
         
         $this->Conn = parent::getConn();
         $this->Read = $this->Conn->prepare($select);

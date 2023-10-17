@@ -4,6 +4,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/PHPClass.php to edit this template
  */
+require_once('../control/AtualAplicCTR.class.php');
 require_once('../model/AmostraDAO.class.php');
 require_once('../model/AuditorDAO.class.php');
 require_once('../model/CaracOrganDAO.class.php');
@@ -21,102 +22,156 @@ require_once('../model/TalhaoDAO.class.php');
 class BaseDadosCTR {
     //put your code here
     
-    public function dadosAmostra() {
+    public function dadosAmostra($info) {
 
-        $amostraDAO = new AmostraDAO();
+        $atualAplicCTR = new AtualAplicCTR();
+        
+        if($atualAplicCTR->verifToken($info)){
+        
+            $amostraDAO = new AmostraDAO();
 
-        $dados = array("dados" => $amostraDAO->dados());
-        $retJson = json_encode($dados);
+            $dados = array("dados" => $amostraDAO->dados());
+            $retJson = json_encode($dados);
 
-        return $retJson;
-
-    }
-    
-    public function dadosAuditor() {
-
-        $auditorDAO = new AuditorDAO();
-
-        $dados = array("dados" => $auditorDAO->dados());
-        $retJson = json_encode($dados);
-
-        return $retJson;
+            return $retJson;
+        
+        }
 
     }
     
-    public function dadosCaracOrgan() {
+    public function dadosAuditor($info) {
 
-        $caracOrganDAO = new CaracOrganDAO();
+        $atualAplicCTR = new AtualAplicCTR();
+        
+        if($atualAplicCTR->verifToken($info)){
 
-        $dados = array("dados" => $caracOrganDAO->dados());
-        $retJson = json_encode($dados);
+            $auditorDAO = new AuditorDAO();
 
-        return $retJson;
+            $dados = array("dados" => $auditorDAO->dados());
+            $retJson = json_encode($dados);
+
+            return $retJson;
+        
+        }
+
+    }
+    
+    public function dadosCaracOrgan($info) {
+
+        $atualAplicCTR = new AtualAplicCTR();
+        
+        if($atualAplicCTR->verifToken($info)){
+
+            $caracOrganDAO = new CaracOrganDAO();
+
+            $dados = array("dados" => $caracOrganDAO->dados());
+            $retJson = json_encode($dados);
+
+            return $retJson;
+        
+        }
 
     }
                 
-    public function dadosOS() {
+    public function dadosOS($info) {
 
-        $osDAO = new OSDAO();
+        $atualAplicCTR = new AtualAplicCTR();
+        
+        if($atualAplicCTR->verifToken($info)){
 
-        $dados = array("dados" => $osDAO->dados());
-        $retJson = json_encode($dados);
+            $osDAO = new OSDAO();
 
-        return $retJson;
+            $dados = array("dados" => $osDAO->dados());
+            $retJson = json_encode($dados);
+
+            return $retJson;
+        
+        }
 
     }
     
-    public function dadosOrgan() {
+    public function dadosOrgan($info) {
 
-        $organDAO = new OrganDAO();
+        $atualAplicCTR = new AtualAplicCTR();
+        
+        if($atualAplicCTR->verifToken($info)){
 
-        $dados = array("dados" => $organDAO->dados());
-        $retJson = json_encode($dados);
+            $organDAO = new OrganDAO();
 
-        return $retJson;
+            $dados = array("dados" => $organDAO->dados());
+            $retJson = json_encode($dados);
+
+            return $retJson;
+        
+        }
 
     }
         
-    public function dadosRCaracAmostra() {
+    public function dadosRCaracAmostra($info) {
 
-        $rCaracAmostraDAO = new RCaracAmostraDAO();
+        $atualAplicCTR = new AtualAplicCTR();
+        
+        if($atualAplicCTR->verifToken($info)){
 
-        $dados = array("dados" => $rCaracAmostraDAO->dados());
-        $retJson = json_encode($dados);
+            $rCaracAmostraDAO = new RCaracAmostraDAO();
 
-        return $retJson;
+            $dados = array("dados" => $rCaracAmostraDAO->dados());
+            $retJson = json_encode($dados);
+
+            return $retJson;
+        
+        }
 
     }
         
-    public function dadosROrganCaracDAO() {
+    public function dadosROrganCaracDAO($info) {
 
-        $rOrganCaracDAO = new ROrganCaracDAO();
+        $atualAplicCTR = new AtualAplicCTR();
+        
+        if($atualAplicCTR->verifToken($info)){
 
-        $dados = array("dados" => $rOrganCaracDAO->dados());
-        $retJson = json_encode($dados);
+            $rOrganCaracDAO = new ROrganCaracDAO();
 
-        return $retJson;
+            $dados = array("dados" => $rOrganCaracDAO->dados());
+            $retJson = json_encode($dados);
+
+            return $retJson;
+        
+        }
 
     }
         
-    public function dadosSecao() {
+    public function dadosSecao($info) {
 
-        $secaoDAO = new SecaoDAO();
+        $atualAplicCTR = new AtualAplicCTR();
+        
+        if($atualAplicCTR->verifToken($info)){
 
-        $dados = array("dados" => $secaoDAO->dados());
-        $retJson = json_encode($dados);
+            $secaoDAO = new SecaoDAO();
 
-        return $retJson;
+            $dados = array("dados" => $secaoDAO->dados());
+            $retJson = json_encode($dados);
+
+            return $retJson;
+        
+        }
 
     }
         
-    public function dadosTalhao() {
+    public function dadosTalhao($info) {
 
-        $talhaoDAO = new TalhaoDAO();
+        $atualAplicCTR = new AtualAplicCTR();
+        
+        if($atualAplicCTR->verifToken($info)){
 
-        $dados = array("dados" => $talhaoDAO->dados());
-        $retJson = json_encode($dados);
+            $talhaoDAO = new TalhaoDAO();
 
-        return $retJson;
+            $dados = array("dados" => $talhaoDAO->dados());
+            $retJson = json_encode($dados);
+
+            return $retJson;
+        
+        }
 
     }
         
