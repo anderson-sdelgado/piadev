@@ -58,9 +58,9 @@ class AtualAplicCTR {
         
     }
     
-    public function verToken($headers){
-        
-        $token = trim(substr($headers['Authorization'], 6));
+    public function verToken($token){
+
+        $token = trim(substr($token, 6));
         $atualAplicDAO = new AtualAplicDAO();
         $v = $atualAplicDAO->verToken($token);
         

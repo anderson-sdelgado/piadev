@@ -20,9 +20,9 @@ class CabecalhoAmostraDAO extends Conn {
                     . " FROM "
                         . " USINAS.IMPORT_INFEST "
                     . " WHERE "
-                        . " DT_CEL = TO_DATE('" . $cabec->dthrCabec . "','DD/MM/YYYY HH24:MI') "
+                        . " DT_CEL = TO_DATE('" . $cabec->dthr . "','DD/MM/YYYY HH24:MI') "
                         . " AND "
-                        . " FUNC_ID = " . $cabec->auditorCabec;
+                        . " FUNC_ID = " . $cabec->matricAuditor;
 
         $this->Conn = parent::getConn();
         $this->Read = $this->Conn->prepare($select);
@@ -45,9 +45,9 @@ class CabecalhoAmostraDAO extends Conn {
                     . " FROM "
                         . " USINAS.IMPORT_INFEST "
                     . " WHERE "
-                        . " DT_CEL = TO_DATE('" . $cabec->dthrCabec . "','DD/MM/YYYY HH24:MI') "
+                        . " DT_CEL = TO_DATE('" . $cabec->dthr . "','DD/MM/YYYY HH24:MI') "
                         . " AND "
-                        . " FUNC_ID = " . $cabec->auditorCabec;
+                        . " FUNC_ID = " . $cabec->matricAuditor;
 
         $this->Conn = parent::getConn();
         $this->Read = $this->Conn->prepare($select);
@@ -63,7 +63,7 @@ class CabecalhoAmostraDAO extends Conn {
         
     }
 
-    public function insCabec($cabec) {
+    public function insCabec($cabec, $local) {
 
         $sql = "INSERT INTO USINAS.IMPORT_INFEST ("
                         . " DT "
@@ -78,15 +78,15 @@ class CabecalhoAmostraDAO extends Conn {
                         . " , STATUS "
                         . " ) "
                         . " VALUES ("
-                        . " TO_DATE('" . $cabec->dthrCabec . "','DD/MM/YYYY HH24:MI') "
-                        . " , " . $cabec->auditorCabec
-                        . " , " . $cabec->osCabec
-                        . " , " . $cabec->secaoCabec
-                        . " , " . $cabec->talhaoCabec
-                        . " , " . $cabec->idOrganCabec
-                        . " , " . $cabec->idCaracOrganCabec
+                        . " TO_DATE('" . $cabec->dthr . "','DD/MM/YYYY HH24:MI') "
+                        . " , " . $cabec->matricAuditor
+                        . " , " . $local->nroOS
+                        . " , " . $local->idSecao
+                        . " , " . $local->idTalhao
+                        . " , " . $cabec->idOrgan
+                        . " , " . $cabec->idCaracOrgan
                         . " , SYSDATE "
-                        . " , TO_DATE('" . $cabec->dthrCabec . "','DD/MM/YYYY HH24:MI') "
+                        . " , TO_DATE('" . $cabec->dthr . "','DD/MM/YYYY HH24:MI') "
                         . " , 2 "
                         . " )";
 

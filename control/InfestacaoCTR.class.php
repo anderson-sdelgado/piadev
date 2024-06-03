@@ -13,64 +13,39 @@ require_once('../model/RespItemAmostraDAO.class.php');
  */
 class InfestacaoCTR {
      
-    private $idCabecArray;
-    private $idRespArray;
-    
-    public function salvarBoletim($info) {
-
-        $dados = $info['dado'];
-        $array = explode("_",$dados);
-
-        $jsonObjCabec = json_decode($array[0]);
-        $jsonObjResp = json_decode($array[1]);
-
-        $dadosCabec = $jsonObjCabec->cabec;
-        $dadosResp = $jsonObjResp->resp;
-
-        return $this->salvarCabec($dadosCabec, $dadosResp);
-
+    public function salvarAmostra($body) {
+        $idCabecArray = array();
+        $cabecArray = json_decode($body);
+        foreach($cabecArray as $cabec){
+            $this->salvarCabecAmostra($cabec);
+            $idCabecArray[] = array("idCabec" => $cabec->idCabec);
+        }
+        return json_encode($idCabecArray, JSON_NUMERIC_CHECK);
     }
     
-    private function salvarCabec($dadosCabec, $dadosResp) {
-        $this->idCabecArray = array();
-        $this->idRespArray = array();
+    private function salvarCabecAmostra($cabec) {
         $cabecalhoAmostraDAO = new CabecalhoAmostraDAO();
-        foreach ($dadosCabec as $cabec) {
+        $respItemAmostraDAO = new RespItemAmostraDAO();
+        
+        $localAmostraList = $cabec->localAmostraList;
+        $respItemAmostraList = $cabec->respItemAmostraList;
+        
+        if($cabec->idCaracOrgan !== 34){
+            $local = $localAmostraList[0];
             $v = $cabecalhoAmostraDAO->verifCabec($cabec);
             if ($v == 0) {
-                $cabecalhoAmostraDAO->insCabec($cabec);
+                $cabecalhoAmostraDAO->insCabec($cabec, $local);
                 $idCabecBD = $cabecalhoAmostraDAO->idCabec($cabec);
             } else {
                 $idCabecBD = $cabecalhoAmostraDAO->idCabec($cabec);
             }
-            $this->salvarResp($idCabecBD, $cabec->idCabec, $dadosResp);
-            $this->idCabecArray[] = array("idCabec" => $cabec->idCabec);
-        }
-        
-        $dadoCabec = array("cabec"=>$this->idCabecArray);
-        $retCabec = json_encode($dadoCabec);
-        
-        $dadoResp = array("resp"=>$this->idRespArray);
-        $retResp = json_encode($dadoResp);
-        
-        return $retCabec . "_" . $retResp;
-        
-    }
-
-    private function salvarResp($idCabecBD, $idCabecCel, $dadosResp) {
-        $this->idRespArray = array();
-        $respItemAmostraDAO = new RespItemAmostraDAO();
-        foreach ($dadosResp as $resp) {
-            if ($idCabecCel == $resp->idCabec) {
+            foreach ($respItemAmostraList as $resp) {
                 $v = $respItemAmostraDAO->verifResp($idCabecBD, $resp);
                 if ($v == 0) {
                     $respItemAmostraDAO->insResp($idCabecBD, $resp);
                 }
-                $this->idRespArray[] = array("idRespItem" => $resp->idRespItem);
             }
         }
-        
     }
-    
     
 }
