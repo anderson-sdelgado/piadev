@@ -10,6 +10,7 @@ require_once('../model/AuditorDAO.class.php');
 require_once('../model/CaracOrganDAO.class.php');
 require_once('../model/OSDAO.class.php');
 require_once('../model/OrganDAO.class.php');
+require_once('../model/PergCabecDAO.class.php');
 require_once('../model/RCaracAmostraDAO.class.php');
 require_once('../model/ROrganCaracDAO.class.php');
 require_once('../model/SecaoDAO.class.php');
@@ -89,7 +90,24 @@ class BaseDadosCTR {
         }
 
     }
-    
+        
+    public function dadosPergCabec($info) {
+
+        $atualAplicCTR = new AtualAplicCTR();
+        
+        if($atualAplicCTR->verifToken($info)){
+
+            $pergCabecDAO = new PergCabecDAO();
+
+            $dados = array("dados" => $pergCabecDAO->dados());
+            $retJson = json_encode($dados);
+
+            return $retJson;
+        
+        }
+
+    }
+        
     public function dadosOrgan($info) {
 
         $atualAplicCTR = new AtualAplicCTR();

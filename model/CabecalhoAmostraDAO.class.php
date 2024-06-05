@@ -13,7 +13,7 @@ require_once('../dbutil/Conn.class.php');
 class CabecalhoAmostraDAO extends Conn {
     //put your code here
     
-    public function verifCabec($cabec) {
+    public function verifCabec($cabec, $idCabec) {
 
         $select = " SELECT "
                         . " COUNT(*) AS QTDE "
@@ -22,7 +22,9 @@ class CabecalhoAmostraDAO extends Conn {
                     . " WHERE "
                         . " DT_CEL = TO_DATE('" . $cabec->dthr . "','DD/MM/YYYY HH24:MI') "
                         . " AND "
-                        . " FUNC_ID = " . $cabec->matricAuditor;
+                        . " FUNC_ID = " . $cabec->matricAuditor
+                        . " AND "
+                        . " CEL_ID = " . $idCabec;
 
         $this->Conn = parent::getConn();
         $this->Read = $this->Conn->prepare($select);
@@ -38,7 +40,7 @@ class CabecalhoAmostraDAO extends Conn {
         
     }
 
-    public function idCabec($cabec) {
+    public function idCabec($cabec, $idCabec) {
 
         $select = " SELECT "
                         . " IMPFEST_ID AS COD "
@@ -47,7 +49,9 @@ class CabecalhoAmostraDAO extends Conn {
                     . " WHERE "
                         . " DT_CEL = TO_DATE('" . $cabec->dthr . "','DD/MM/YYYY HH24:MI') "
                         . " AND "
-                        . " FUNC_ID = " . $cabec->matricAuditor;
+                        . " FUNC_ID = " . $cabec->matricAuditor
+                        . " AND "
+                        . " CEL_ID = " . $idCabec;
 
         $this->Conn = parent::getConn();
         $this->Read = $this->Conn->prepare($select);

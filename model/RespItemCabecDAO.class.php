@@ -6,25 +6,25 @@
  */
 require_once('../dbutil/Conn.class.php');
 /**
- * Description of RespItemAmostraDAO
+ * Description of RespItemCabecDAO
  *
  * @author anderson
  */
-class RespItemAmostraDAO extends Conn {
-    //put your code here
+class RespItemCabecDAO extends Conn {
+    
     
     public function verifResp($idCabec, $resp) {
 
         $select = " SELECT "
                         . " COUNT(*) AS QTDE "
                     . " FROM "
-                        . " USINAS.ITEM_IMPORT_INFEST "
+                        . " ITEM_CABEC_IMPORT_INFEST "
                     . " WHERE "
                         . " IMPFEST_ID = " . $idCabec
                         . " AND "
-                        . " NRO_PONTO = " . $resp->ponto
+                        . " ITEMCABEC_ID = " . $resp->idItemCabec
                         . " AND "
-                        . " ITAMOSORGA_ID = " . $resp->idAmostra;
+                        . " OPCAO = " . $resp->flag;
 
         $this->Conn = parent::getConn();
         $this->Read = $this->Conn->prepare($select);
@@ -41,17 +41,15 @@ class RespItemAmostraDAO extends Conn {
 
     public function insResp($idCabec, $resp) {
 
-        $sql = " INSERT INTO USINAS.ITEM_IMPORT_INFEST ( "
+        $sql = " INSERT INTO ITEM_CABEC_IMPORT_INFEST ( "
                                     . " IMPFEST_ID "
-                                    . " , NRO_PONTO "
-                                    . " , ITAMOSORGA_ID "
-                                    . " , VL "
+                                    . " , ITEMCABEC_ID "
+                                    . " , OPCAO "
                                     . " ) "
                                     . " VALUES ("
                                     . " " . $idCabec
-                                    . " , " . $resp->ponto
-                                    . " , " . $resp->idAmostra
-                                    . " , " . $resp->valor
+                                    . " , " . $resp->idItemCabec
+                                    . " , " . $resp->flag
                                     . " )";
 
         $this->Conn = parent::getConn();
@@ -59,5 +57,6 @@ class RespItemAmostraDAO extends Conn {
         $this->Create->execute();
         
     }
+    
     
 }
