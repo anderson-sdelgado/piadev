@@ -11,20 +11,21 @@ require_once('../dbutil/Conn.class.php');
  * @author anderson
  */
 class CabecalhoAmostraDAO extends Conn {
-    //put your code here
     
-    public function verifCabec($cabec, $idCabec) {
+    public function verifCabec($cabec) {
 
         $select = " SELECT "
-                        . " COUNT(*) AS QTDE "
+                        . " COUNT(ID) AS QTDE "
                     . " FROM "
-                        . " USINAS.IMPORT_INFEST "
+                        . " PIA_CABEC "
                     . " WHERE "
-                        . " DT_CEL = TO_DATE('" . $cabec->dthr . "','DD/MM/YYYY HH24:MI') "
+                        . " DTHR_CEL = TO_DATE('" . $cabec->dthr . "','DD/MM/YYYY HH24:MI') "
                         . " AND "
-                        . " FUNC_ID = " . $cabec->matricAuditor
+                        . " ORGDANINHO_ID = " . $cabec->idOrgan
                         . " AND "
-                        . " CEL_ID = " . $idCabec;
+                        . " FUNC_ID = " . $cabec->idFunc
+                        . " AND "
+                        . " CEL_ID = " . $cabec->idCabec;
 
         $this->Conn = parent::getConn();
         $this->Read = $this->Conn->prepare($select);
@@ -40,19 +41,21 @@ class CabecalhoAmostraDAO extends Conn {
         
     }
 
-    public function idCabec($cabec, $idCabec) {
+    public function idCabec($cabec) {
 
         $select = " SELECT "
-                        . " IMPFEST_ID AS COD "
+                        . " ID "
                     . " FROM "
-                        . " USINAS.IMPORT_INFEST "
+                        . " PIA_CABEC "
                     . " WHERE "
-                        . " DT_CEL = TO_DATE('" . $cabec->dthr . "','DD/MM/YYYY HH24:MI') "
+                        . " DTHR_CEL = TO_DATE('" . $cabec->dthr . "','DD/MM/YYYY HH24:MI') "
                         . " AND "
-                        . " FUNC_ID = " . $cabec->matricAuditor
+                        . " ORGDANINHO_ID = " . $cabec->idOrgan
                         . " AND "
-                        . " CEL_ID = " . $idCabec;
-
+                        . " FUNC_ID = " . $cabec->idFunc
+                        . " AND "
+                        . " CEL_ID = " . $cabec->idCabec;
+        
         $this->Conn = parent::getConn();
         $this->Read = $this->Conn->prepare($select);
         $this->Read->setFetchMode(PDO::FETCH_ASSOC);
@@ -60,38 +63,36 @@ class CabecalhoAmostraDAO extends Conn {
         $result = $this->Read->fetchAll();
 
         foreach ($result as $item) {
-            $id = $item['COD'];
+            $id = $item['ID'];
         }
 
         return $id;
         
     }
 
-    public function insCabec($cabec, $local) {
+    public function insCabec($cabec) {
 
-        $sql = "INSERT INTO USINAS.IMPORT_INFEST ("
-                        . " DT "
-                        . " , FUNC_ID "
-                        . " , NRO_OS "
-                        . " , PROPRAGR_ID "
-                        . " , TALHAO_ID "
+        $sql = "INSERT INTO PIA_CABEC ("
+                        . " FUNC_ID "
                         . " , ORGDANINHO_ID "
                         . " , GRCARACORG_ID "
-                        . " , DT_HR_GERA "
-                        . " , DT_CEL "
+                        . " , AMOSORGAN_ID "
+                        . " , DTHR "
+                        . " , DTHR_CEL "
+                        . " , DTHR_TRANS "
                         . " , STATUS "
+                        . " , CEL_ID "
                         . " ) "
                         . " VALUES ("
-                        . " TO_DATE('" . $cabec->dthr . "','DD/MM/YYYY HH24:MI') "
-                        . " , " . $cabec->matricAuditor
-                        . " , " . $local->nroOS
-                        . " , " . $local->idSecao
-                        . " , " . $local->idTalhao
+                        . " " . $cabec->idFunc
                         . " , " . $cabec->idOrgan
                         . " , " . $cabec->idCaracOrgan
-                        . " , SYSDATE "
+                        . " , " . $cabec->idAmostraOrgan
                         . " , TO_DATE('" . $cabec->dthr . "','DD/MM/YYYY HH24:MI') "
+                        . " , TO_DATE('" . $cabec->dthr . "','DD/MM/YYYY HH24:MI') "
+                        . " , SYSDATE "
                         . " , 2 "
+                        . " , " . $cabec->idCabec
                         . " )";
 
         $this->Conn = parent::getConn();

@@ -12,19 +12,18 @@ require_once('../dbutil/Conn.class.php');
  */
 class RespItemCabecDAO extends Conn {
     
-    
-    public function verifResp($idCabec, $resp) {
+    public function verifResp($resp, $idCabec) {
 
         $select = " SELECT "
-                        . " COUNT(*) AS QTDE "
+                        . " COUNT(ID) AS QTDE "
                     . " FROM "
-                        . " ITEM_CABEC_IMPORT_INFEST "
+                        . " PIA_RESP_ITEM_CABEC "
                     . " WHERE "
-                        . " IMPFEST_ID = " . $idCabec
+                        . " CABEC_ID = " . $idCabec
                         . " AND "
-                        . " ITEMCABEC_ID = " . $resp->idItemCabec
+                        . " ITEM_ID = " . $resp->idItemCabec
                         . " AND "
-                        . " OPCAO = " . $resp->flag;
+                        . " CEL_ID = " . $resp->idRespItemCabec;
 
         $this->Conn = parent::getConn();
         $this->Read = $this->Conn->prepare($select);
@@ -39,17 +38,19 @@ class RespItemCabecDAO extends Conn {
         return $v;
     }
 
-    public function insResp($idCabec, $resp) {
+    public function insResp($resp, $idCabec) {
 
-        $sql = " INSERT INTO ITEM_CABEC_IMPORT_INFEST ( "
-                                    . " IMPFEST_ID "
-                                    . " , ITEMCABEC_ID "
-                                    . " , OPCAO "
+        $sql = " INSERT INTO PIA_RESP_ITEM_CABEC ( "
+                                    . " CABEC_ID "
+                                    . " , ITEM_ID "
+                                    . " , FLAG "
+                                    . " , CEL_ID "
                                     . " ) "
                                     . " VALUES ("
                                     . " " . $idCabec
                                     . " , " . $resp->idItemCabec
                                     . " , " . $resp->flag
+                                    . " , " . $resp->idRespItemCabec
                                     . " )";
 
         $this->Conn = parent::getConn();

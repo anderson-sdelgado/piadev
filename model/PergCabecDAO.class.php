@@ -22,10 +22,10 @@ class PergCabecDAO extends Conn {
     public function dados() {
 
         $select = " SELECT "
-                    . " ITEMPERGCABEC_ID AS \"idPergCabec\" "
+                    . " ID AS \"idPergCabec\" "
                     . " , DESCR AS \"descrPergCabec\" "
                 . " FROM "
-                    . " PERG_CABEC_IMPORT_INFEST ";
+                    . " PIA_PERG_CABEC ";
         
         $this->Conn = parent::getConn();
         $this->Read = $this->Conn->prepare($select);

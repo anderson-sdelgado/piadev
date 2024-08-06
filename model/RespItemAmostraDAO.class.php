@@ -13,18 +13,20 @@ require_once('../dbutil/Conn.class.php');
 class RespItemAmostraDAO extends Conn {
     //put your code here
     
-    public function verifResp($idCabec, $resp) {
+    public function verifResp($resp, $idLocalBD) {
 
         $select = " SELECT "
-                        . " COUNT(*) AS QTDE "
+                        . " COUNT(ID) AS QTDE "
                     . " FROM "
-                        . " USINAS.ITEM_IMPORT_INFEST "
+                        . " PIA_RESP_ITEM_AMOSTRA "
                     . " WHERE "
-                        . " IMPFEST_ID = " . $idCabec
+                        . " LOCAL_ID = " . $idLocalBD
                         . " AND "
                         . " NRO_PONTO = " . $resp->ponto
                         . " AND "
-                        . " ITAMOSORGA_ID = " . $resp->idAmostra;
+                        . " ITAMOSORGA_ID = " . $resp->idAmostra
+                        . " AND "
+                        . " CEL_ID = " . $resp->idRespItemAmostra;
 
         $this->Conn = parent::getConn();
         $this->Read = $this->Conn->prepare($select);
@@ -39,19 +41,23 @@ class RespItemAmostraDAO extends Conn {
         return $v;
     }
 
-    public function insResp($idCabec, $resp) {
+    public function insResp($resp, $idLocalBD) {
 
-        $sql = " INSERT INTO USINAS.ITEM_IMPORT_INFEST ( "
-                                    . " IMPFEST_ID "
+        $sql = " INSERT INTO PIA_RESP_ITEM_AMOSTRA ( "
+                                    . " LOCAL_ID "
                                     . " , NRO_PONTO "
                                     . " , ITAMOSORGA_ID "
                                     . " , VL "
+                                    . " , OBS "
+                                    . " , CEL_ID "
                                     . " ) "
                                     . " VALUES ("
-                                    . " " . $idCabec
+                                    . " " . $idLocalBD
                                     . " , " . $resp->ponto
                                     . " , " . $resp->idAmostra
                                     . " , " . $resp->valor
+                                    . " , '" . $resp->obs . "'"
+                                    . " , " . $resp->idRespItemAmostra
                                     . " )";
 
         $this->Conn = parent::getConn();
